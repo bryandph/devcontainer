@@ -16,7 +16,7 @@ build:
     - docker
   script:
     - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
-    - devcontainer build --workspace-folder . --image-name ${CI_REGISTRY_IMAGE}:latest --cache-from ${CI_REGISTRY_IMAGE}:latest
+    - devcontainer build --workspace-folder . --image-name ${CI_REGISTRY_IMAGE}:latest --cache-from ${CI_REGISTRY_IMAGE}:latest --platform linux/amd64,linux/arm64
     - docker push ${CI_REGISTRY_IMAGE}:latest
   rules:
   - changes:
