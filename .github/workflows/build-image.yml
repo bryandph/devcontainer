@@ -43,13 +43,13 @@ jobs:
             ${{ github.repository }}
             ghcr.io/${{ github.repository }}
 
-      - name: Pre-build dev container image
-        uses: devcontainers/ci@v0.3
-        with:
-          imageName: ${{ github.repository }}
-          imageTag: ${{ steps.meta.outputs.tags }}
-          cacheFrom: ${{ github.repository }}
-          push: always
+      # - name: Pre-build dev container image
+      #   uses: devcontainers/ci@v0.3
+      #   with:
+      #     imageName: ${{ github.repository }}
+      #     imageTag: ${{ steps.meta.outputs.tags }}
+      #     cacheFrom: ${{ github.repository }}
+      #     push: always
 
       - name: Pre-build dev container image
         uses: devcontainers/ci@v0.3
