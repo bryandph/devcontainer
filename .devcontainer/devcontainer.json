@@ -3,15 +3,15 @@
 {
 	"name": "BryanPH's Devcontainer",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	// "build": {
-	// 	// Sets the run context to one level up instead of the .devcontainer folder.
-	// 	"context": ".",
-	// 	// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
-	// 	"dockerfile": "Containerfile"
-	// },
-	"dockerComposeFile": "docker-compose.yml",
-	"service": "devcontainer",
-	"workspaceFolder": "/workspace",
+	"build": {
+		// Sets the run context to one level up instead of the .devcontainer folder.
+		"context": ".",
+		// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
+		"dockerfile": "Containerfile"
+	},
+	// "dockerComposeFile": "docker-compose.yml",
+	// "service": "devcontainer",
+	// "workspaceFolder": "/workspace",
 	"postStartCommand": "/home/vscode/asdf-post-create.sh",
 	// "postAttachCommand": [],
 	// Configure tool-specific properties.
