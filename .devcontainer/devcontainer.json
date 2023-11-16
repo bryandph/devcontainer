@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/powershell
 {
-	"name": "bryanph-site",
+	"name": "BryanPH's Devcontainer",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	// "build": {
 	// 	// Sets the run context to one level up instead of the .devcontainer folder.
@@ -12,7 +12,6 @@
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "devcontainer",
 	"workspaceFolder": "/workspace",
-	"overrideCommand": false,
 	"postStartCommand": "/home/vscode/asdf-post-create.sh",
 	// "postAttachCommand": [],
 	// Configure tool-specific properties.
@@ -36,13 +35,16 @@
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
 				"nguyenngoclong.asdf"
-			]
+			],
+			"dotfiles.repository": "https://gitlab.personal.bryanph.com/bryanph/dotfiles.git",
+			"dotfiles.targetPath": "~/dotfiles",
+			"dotfiles.installCommand": "install.sh"
 		}
-	},
+	}
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [
-		3000
-	]
+	// "forwardPorts": [
+	// 	3000
+	// ]
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
 }

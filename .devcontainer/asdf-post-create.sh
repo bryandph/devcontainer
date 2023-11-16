@@ -2,7 +2,7 @@
 
 cd "${0%/*}/.."
 
-asdf plugin-add direnv &&
+asdf plugin-add direnv
 asdf direnv setup --shell zsh --version latest
 echo "direnv 2.32.3" >> /home/vscode/.tool-versions
 

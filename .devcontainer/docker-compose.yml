@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   devcontainer:
+    hostname: devcontainer
     image: gitlab.personal.bryanph.com:5050/bryanph/devcontainer:latest
     build:
       context: .
