@@ -42,11 +42,19 @@ jobs:
           images: |
             ${{ github.repository }}
             ghcr.io/${{ github.repository }}
-      
-      - name: Build and push Docker images
-        uses: docker/build-push-action@v5.0.0
+
+      - name: Pre-build dev container image
+        uses: devcontainers/ci@v0.3
         with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          imageName: ${{ github.repository }}
+          imageTag: ${{ steps.meta.outputs.tags }}
+          cacheFrom: ${{ github.repository }}
+          push: always
+
+      - name: Pre-build dev container image
+        uses: devcontainers/ci@v0.3
+        with:
+          imageName: ghcr.io/${{ github.repository }}
+          imageTag: ${{ steps.meta.outputs.tags }}
+          cacheFrom: ghcr.io/${{ github.repository }}
+          push: always
