@@ -12,6 +12,8 @@ before_script:
 
 build:
   stage: build
+  tags:
+    - docker
   script:
     - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
     - devcontainer build --workspace-folder . --image-name ${CI_REGISTRY_IMAGE}:latest
