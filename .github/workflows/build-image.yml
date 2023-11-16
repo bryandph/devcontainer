@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - .devcontainer/**
+  workflow_dispatch:
 
 jobs:
   push_to_registries:
