@@ -2,6 +2,9 @@
 
 cd "${0%/*}/.."
 
+asdf plugin-add direnv &&
+asdf direnv setup --shell zsh --version latest
+
 # find all .tool-versions within the repo, but ignore all hidden directories
 /bin/find /workspace -type d -path '*/.*' -prune -o -name '*.tool-version*' -print | while read filePath; do
   echo "asdf setup for $filePath"
@@ -10,11 +13,7 @@ cd "${0%/*}/.."
   cat $filePath | cut -d' ' -f1 | grep "^[^\#]" | xargs -i asdf plugin add {}
 
   # install all required versions
-  (cd $(dirname $filePath) &&
-  asdf plugin-add direnv &&
-  asdf direnv setup --shell zsh --version latest &&
-  direnv allow &&
-  asdf install)
+  (cd $(dirname $filePath) && direnv allow && asdf install)
 done
 
 # automatically startup a docker-compose that exists in the devcontainer folder
