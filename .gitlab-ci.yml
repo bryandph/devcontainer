@@ -1,7 +1,3 @@
-rules:
-  - changes:
-    - .devcontainer/**
-
 image: docker:latest
 
 variables:
@@ -22,3 +18,6 @@ build:
     - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
     - devcontainer build --workspace-folder . --image-name ${CI_REGISTRY_IMAGE}:latest
     - docker push ${CI_REGISTRY_IMAGE}:latest
+  rules:
+  - changes:
+    - .devcontainer/**
