@@ -1,0 +1,17 @@
+image: docker:latest
+
+variables:
+  DOCKER_TLS_CERTDIR: "/certs"
+
+services:
+  - docker:dind
+
+before_script:
+  - apk add --update nodejs npm python3 make g++
+  - npm install -g @devcontainers/cli
+
+build:
+  stage: build
+  script:
+    - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
+    - devcontainer build --workspace-folder . --push true --image-name ${CI_REGISTRY_IMAGE}:latest
