@@ -1,10 +1,11 @@
 #!/usr/bin/zsh
 
-cd "${0%/*}/.."
+cd "/workspaces"
 
 asdf plugin-add direnv
 asdf direnv setup --shell zsh --version latest
-echo "direnv 2.32.3" >> /home/vscode/.tool-versions
+echo "direnv 2.32.3" > /home/vscode/.tool-versions
+
 
 # find all .tool-versions within the repo, but ignore all hidden directories
 /bin/find /workspaces -type d -path '*/.*' -prune -o -name '*.tool-version*' -print | while read filePath; do
