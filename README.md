@@ -40,7 +40,7 @@ I also highly recommend [configuring dotfiles in VSCode](https://code.visualstud
 
 Additionally, you can configure ASDF and direnv and bootstrap your development environment by creating files like:
 
-##### .envrc
+##### .envrc (but don't track this file in VCS if you plan to expose secrets here)
 ```shell
 export SOMEVAR = "SOME VALUE"
 
