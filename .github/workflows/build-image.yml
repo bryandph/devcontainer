@@ -40,21 +40,21 @@ jobs:
         uses: docker/metadata-action@v5.0.0
         with:
           images: |
-            ${{ github.repository }}
+            docker.io/${{ github.repository }}
             ghcr.io/${{ github.repository }}
 
-      # - name: Pre-build dev container image
-      #   uses: devcontainers/ci@v0.3
-      #   with:
-      #     imageName: ${{ github.repository }}
-      #     imageTag: ${{ steps.meta.outputs.tags }}
-      #     cacheFrom: ${{ github.repository }}
-      #     push: always
+      - name: Pre-build dev container image
+        uses: devcontainers/ci@v0.3
+        with:
+          imageName: docker.io/${{ github.repository }}
+          imageTag: latest
+          cacheFrom: docker.io/${{ github.repository }}
+          push: always
 
       - name: Pre-build dev container image
         uses: devcontainers/ci@v0.3
         with:
           imageName: ghcr.io/${{ github.repository }}
-          imageTag: ${{ steps.meta.outputs.tags }}
+          imageTag: latest
           cacheFrom: ghcr.io/${{ github.repository }}
           push: always
