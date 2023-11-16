@@ -15,7 +15,7 @@ build:
   tags:
     - docker
   variables:
-    - DOCKER_CLI_EXPERIMENTAL: enabled
+    DOCKER_CLI_EXPERIMENTAL: enabled
 
   script:
     - export DOCKER_CLI_EXPERIMENTAL=enabled
