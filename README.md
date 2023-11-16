@@ -16,7 +16,7 @@ To use this repo I suggest creating the following files in a repo and opening th
     "dockerComposeFile": "docker-compose.yml",
     "service": "devcontainer",
     "workspaceFolder": "/workspace",
-	// "postStartCommand": "", // Uncomment to disable ASDF .tool-versions installation on container start
+	  // "postStartCommand": "", // Uncomment to disable ASDF .tool-versions install on container start
     "mounts": [
     ],
 	"forwardPorts": [
@@ -37,3 +37,17 @@ services:
 ```
 
 I also highly recommend [configuring dotfiles in VSCode](https://code.visualstudio.com/docs/devcontainers/containers#_personalizing-with-dotfile-repositories) to enhance the rather bare zsh installed by default. My dotfiles are in `bryandph/dotfiles`.
+
+Additionally, you can configure ASDF and direnv and bootstrap your development environment by creating files like:
+
+##### .envrc
+```shell
+export SOMEVAR = "SOME VALUE"
+
+use asdf
+```
+
+##### .tool-versions
+```
+python 3.11.5
+```
