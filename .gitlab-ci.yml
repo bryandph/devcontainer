@@ -14,10 +14,11 @@ build:
   stage: build
   tags:
     - docker
-  env:
+  variables:
     - DOCKER_CLI_EXPERIMENTAL: enabled
 
   script:
+    - export DOCKER_CLI_EXPERIMENTAL=enabled
     - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
     - docker buildx create --use --name new-builder
     - devcontainer build --workspace-folder . --image-name ${CI_REGISTRY_IMAGE}:latest --cache-from ${CI_REGISTRY_IMAGE}:latest --platform linux/amd64
