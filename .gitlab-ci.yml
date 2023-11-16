@@ -14,6 +14,9 @@ build:
   stage: build
   tags:
     - docker
+  env:
+    - DOCKER_CLI_EXPERIMENTAL: enabled
+
   script:
     - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
     - docker buildx create --use --name new-builder
