@@ -30,15 +30,15 @@
 					"zsh": {
 						"path": "zsh"
 					}
-				}
+				},
+				"dotfiles.repository": "https://github.com/bryandph/dotfiles.git",
+				"dotfiles.targetPath": "~/dotfiles",
+				"dotfiles.installCommand": "install.sh"
 			},
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
 				"nguyenngoclong.asdf"
-			],
-			"dotfiles.repository": "https://gitlab.personal.bryanph.com/bryanph/dotfiles.git",
-			"dotfiles.targetPath": "~/dotfiles",
-			"dotfiles.installCommand": "install.sh"
+			]
 		}
 	}
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

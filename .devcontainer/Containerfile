@@ -22,7 +22,8 @@ RUN groupadd --gid $USER_GID $USERNAME \
     libssl-dev zlib1g-dev \
     libbz2-dev libreadline-dev libsqlite3-dev curl \
     libncursesw5-dev xz-utils tk-dev libxml2-dev \
-    libxmlsec1-dev libffi-dev liblzma-dev pinentry-tty nano\
+    libxmlsec1-dev libffi-dev liblzma-dev pinentry-tty \
+    nano unzip tar postgresql-client\
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME \
     # Clean up
