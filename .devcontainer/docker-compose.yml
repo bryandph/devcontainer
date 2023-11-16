@@ -7,5 +7,5 @@ services:
       context: .
       dockerfile: ./Containerfile
     volumes:
-      - ..:/workspace:cached
+      - ..:/workspaces/${PROJECT_NAME}:cached
     command: -c sleep infinity

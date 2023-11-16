@@ -11,7 +11,7 @@
 	},
 	// "dockerComposeFile": "docker-compose.yml",
 	// "service": "devcontainer",
-	// "workspaceFolder": "/workspace",
+	// "workspaceFolder": "/workspaces/${localWorkspaceFolder}",
 	"postStartCommand": "/home/vscode/asdf-post-create.sh",
 	// "postAttachCommand": [],
 	// Configure tool-specific properties.
