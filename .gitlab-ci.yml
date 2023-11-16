@@ -1,3 +1,7 @@
+rules:
+  - changes:
+    - .devcontainer/**
+
 image: docker:latest
 
 variables:
