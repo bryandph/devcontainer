@@ -26,7 +26,7 @@ RUN groupadd --gid $USER_GID $USERNAME \
     nano unzip tar postgresql-client\
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME \
-    && locale-gen \
+    && locale \
     # Clean up
     && apt-get autoremove -y \
     && apt-get clean -y \
