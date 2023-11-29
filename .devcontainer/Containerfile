@@ -23,10 +23,11 @@ RUN groupadd --gid $USER_GID $USERNAME \
     libbz2-dev libreadline-dev libsqlite3-dev curl \
     libncursesw5-dev xz-utils tk-dev libxml2-dev \
     libxmlsec1-dev libffi-dev liblzma-dev pinentry-tty \
-    nano unzip tar util-linux bsdmainutils \
+    nano unzip tar util-linux bsdmainutils locales \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME \
-    && locale \
+    && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
+    && locale-gen \
     # Clean up
     && apt-get autoremove -y \
     && apt-get clean -y \
