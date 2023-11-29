@@ -27,4 +27,5 @@ asdf-plugin-manager export > ~/.plugin-versions
   echo "asdf setup for $filePath"
   cd $(dirname  "$filePath")
   asdf-plugin-manager add-all
+  asdf direnv install
 done
