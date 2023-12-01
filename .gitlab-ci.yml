@@ -55,3 +55,4 @@ build:
   rules:
     - changes:
         - .devcontainer/**
+        - .gitlab-ci.yml
