@@ -8,7 +8,7 @@ services:
   - docker:dind
 
 before_script:
-  - apk add --update nodejs npm python3 make g++
+  - apk add --update curl git jq unzip nodejs npm python3 make g++
   - npm install -g @devcontainers/cli
 
 build:
@@ -17,9 +17,40 @@ build:
     - docker
 
   script:
-    - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
-    - devcontainer build --workspace-folder . --image-name ${CI_REGISTRY_IMAGE}:latest --cache-from ${CI_REGISTRY_IMAGE}:latest
-    - docker push ${CI_REGISTRY_IMAGE}:latest
+    - |
+      # install bws
+      export BWS_VER="$(
+        curl -s https://api.github.com/repos/bitwarden/sdk/releases/latest | \
+        jq -r '.tag_name' | sed 's/bws-v//'
+      )"
+      curl -LO \
+        "https://github.com/bitwarden/sdk/releases/download/bws-v$BWS_VER/bws-x86_64-unknown-linux-gnu-$BWS_VER.zip"
+      unzip -o bws-x86_64-unknown-linux-gnu-$BWS_VER.zip -d /usr/local/bin
+
+      # secrets to retrieve
+      secret_ids=(
+        "d6904c56-1779-4424-8307-b0cb00508a52"
+        "1bf2f397-d78d-4bbe-a27b-b0cb00510557"
+        "f9d89a8b-f39e-459d-82be-b0cb00525c63"
+        "863a1a6a-412f-43d7-aaa8-b0cb00524a1f"
+      )
+
+      # export secrets as environment variables
+      for secret_id in "${secret_ids[@]}"; do
+        secret="$(bws secret get "$secret_id")"
+        secret_key="$(echo "$secret" | jq -r '.key')"
+        secret_value="$(echo "$secret" | jq -r '.value')"
+        export "$secret_key"="$secret_value"
+      done
+
+      docker login -u ${DOCKER_HUB_USER} -p ${DOCKER_HUB_TOKEN} docker.io
+      docker login -u ${GITHUB_USER} -p ${GITHUB_TOKEN} ghcr.io
+      docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
+      # Build and Push Container
+      devcontainer build --workspace-folder . --image-name ${CI_REGISTRY_IMAGE}:latest --cache-from ${CI_REGISTRY_IMAGE}:latest
+      docker tag ${CI_REGISTRY_IMAGE}:latest ghcr.io/bryandph/${CI_PROJECT_NAME}:latest
+      docker tag ${CI_REGISTRY_IMAGE}:latest docker.io/bryandph/${CI_PROJECT_NAME}:latest
+      docker push ${CI_REGISTRY_IMAGE}:latest docker.io/bryandph/${CI_PROJECT_NAME}:latest ghcr.io/bryandph/${CI_PROJECT_NAME}:latest
 
   rules:
     - changes:
