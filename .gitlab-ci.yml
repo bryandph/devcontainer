@@ -25,8 +25,7 @@ build:
       unzip -o bws-x86_64-unknown-linux-gnu-$BWS_VER.zip -d /usr/local/bin
 
       # secrets to retrieve
-      secret_ids=(
-        "d6904c56-1779-4424-8307-b0cb00508a52"
+      secret_ids=("d6904c56-1779-4424-8307-b0cb00508a52"
         "1bf2f397-d78d-4bbe-a27b-b0cb00510557"
         "f9d89a8b-f39e-459d-82be-b0cb00525c63"
         "863a1a6a-412f-43d7-aaa8-b0cb00524a1f"
