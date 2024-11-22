@@ -28,12 +28,13 @@
 						"icon": "terminal-bash"
 					},
 					"zsh": {
-						"path": "zsh"
+						"path": "zsh",
+						"icon": "terminal-bash"
 					}
 				},
 				"dotfiles.repository": "https://github.com/bryandph/dotfiles.git",
-				"dotfiles.targetPath": "~/dotfiles",
-				"dotfiles.installCommand": "install.sh"
+				"dotfiles.targetPath": "~/.dotfiles",
+				"dotfiles.installCommand": "boostrap.sh"
 			},
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [

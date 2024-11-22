@@ -9,7 +9,7 @@ ARG ASDF_VERSION=v0.13.1
 LABEL org.opencontainers.image.authors="Bryan Prather-Huff" \
     org.opencontainers.image.source=https://gitlab.personal.bryanph.com:8080:devcontainer\
     org.opencontainers.image.licenses="MIT" \
-    org.opencontainers.image.title="ASDF Devcontainer Image" \
+    org.opencontainers.image.title="Devcontainer Image" \
     org.opencontainers.image.description="A Docker image for use with VS Code's Remote Containers extension or GitHub codespaces."
 
 # Smash dependencies for other languages here to decrease layers.
@@ -18,12 +18,6 @@ LABEL org.opencontainers.image.authors="Bryan Prather-Huff" \
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME \
     && apt-get update \
-    && apt-get install -y sudo git wget tar zsh gpg build-essential \
-    libssl-dev zlib1g-dev \
-    libbz2-dev libreadline-dev libsqlite3-dev curl \
-    libncursesw5-dev xz-utils tk-dev libxml2-dev \
-    libxmlsec1-dev libffi-dev liblzma-dev pinentry-tty \
-    nano unzip tar util-linux bsdmainutils locales \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME \
     && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
@@ -37,8 +31,6 @@ USER $USERNAME
 
 # Install ASDF
 RUN git clone https://github.com/asdf-vm/asdf.git /home/$USERNAME/.asdf --branch $ASDF_VERSION
-
-COPY asdf-post-create.sh /home/$USERNAME/asdf-post-create.sh
 
 COPY entrypoint.sh /home/$USERNAME/entrypoint.sh
 
