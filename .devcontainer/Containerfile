@@ -1,40 +1,37 @@
-FROM debian:bookworm
+ARG BASE_IMAGE=debian:bookworm
+FROM ${BASE_IMAGE}
+
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y sudo git rsync curl nano zsh locales
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+    dpkg-reconfigure --frontend=noninteractive locales && \
+    update-locale LANG=en_US.UTF-8 \
+    # Clean up
+    && apt-get autoremove -y \
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/*
+ENV LANG=en_US.UTF-8
 
 ARG USERNAME=vscode
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
-ARG ASDF_VERSION=v0.13.1
-
 LABEL org.opencontainers.image.authors="Bryan Prather-Huff" \
-    org.opencontainers.image.source=https://gitlab.personal.bryanph.com:8080:devcontainer\
+    org.opencontainers.image.source="gitlab.personal.bryanph.com:5050/bryanph/devcontainer" \
     org.opencontainers.image.licenses="MIT" \
     org.opencontainers.image.title="Devcontainer Image" \
     org.opencontainers.image.description="A Docker image for use with VS Code's Remote Containers extension or GitHub codespaces."
 
-# Smash dependencies for other languages here to decrease layers.
-# Current asdf plugin deps:
-# python
 RUN groupadd --gid $USER_GID $USERNAME \
-    && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME \
-    && apt-get update \
+    && useradd -s /bin/zsh --uid $USER_UID --gid $USER_GID -m $USERNAME \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-    && chmod 0440 /etc/sudoers.d/$USERNAME \
-    && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
-    && locale-gen \
-    # Clean up
-    && apt-get autoremove -y \
-    && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/*
+    && chmod 0440 /etc/sudoers.d/$USERNAME
 
 USER $USERNAME
+WORKDIR /home/$USERNAME
 
-# Install ASDF
-RUN git clone https://github.com/asdf-vm/asdf.git /home/$USERNAME/.asdf --branch $ASDF_VERSION
-
+RUN git clone https://github.com/bryandph/dotfiles /home/$USERNAME/.dotfiles && \
+    /home/$USERNAME/.dotfiles/bootstrap.sh -f
 COPY entrypoint.sh /home/$USERNAME/entrypoint.sh
-
-RUN echo "\n. $HOME/.asdf/asdf.sh\n" | tee -a ~/.zshrc ~/.bashrc ~/.profile
 
 ENTRYPOINT [ "/home/vscode/entrypoint.sh" ]
 CMD ["-l"]
